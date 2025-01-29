@@ -3,13 +3,12 @@ pragma solidity >=0.4.25 <0.9.0;
 pragma experimental ABIEncoderV2;
 
 import "./struct/ProductSt.sol";
-import "./library/ProductLib.sol";
+import "./library/ProductsLib.sol";
 
 contract ProductStorage {
-    using ProductItems for ProductSt;
-    bool isLoaded;
-
+    bool public isLoaded;
     address private owner;
+
     ProductSt[] private products;
     mapping(string => ProductSt) private productsExist;
 
@@ -28,16 +27,11 @@ contract ProductStorage {
         _;
     }
 
-    function loadProducts() public loaded(){
-        products.push(ProductItems.milk());
-        productsExist[products[0].name] = products[0];
+    function loadProducts() public loaded() {
 
-        products.push(ProductItems.bread());
-        productsExist[products[1].name] = products[1];
-
-        products.push(ProductItems.butter());
-        productsExist[products[2].name] = products[2];
-
+        bool success = ProductsLib.loadItems(products, productsExist);
+        require(success, "Attention! Failed to load products.");
+        
         isLoaded = true;
     }
 

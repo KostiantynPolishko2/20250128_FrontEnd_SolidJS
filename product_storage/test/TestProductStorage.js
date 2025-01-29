@@ -4,12 +4,11 @@ contract("ProductStorage", accounts => {
   it("...should store the product 'ProductSt'.", async () => {
     const productStorage = await ProductStorage.deployed();
 
-    // Set value of Hello World
+    // Set loading of products
     await productStorage.loadProducts();
 
-    // Get stored value
-    const product = await productStorage.getProductByName("milk");
-
-    assert.equal(product.name, "milk", "The product 'milk' was not stored.");
+    // Get name of stored product
+    const product = await productStorage.getProductByName("butter");
+    assert.equal(product.name, "butter", "The product 'milk' was not stored.");
   });
 });
