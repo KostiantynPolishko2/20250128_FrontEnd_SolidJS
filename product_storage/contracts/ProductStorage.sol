@@ -6,7 +6,7 @@ import "./struct/ProductSt.sol";
 import "./library/ProductsLib.sol";
 
 contract ProductStorage {
-    bool public isLoaded;
+    bool private isLoaded;
     address private owner;
 
     ProductSt[] private products;
@@ -31,7 +31,7 @@ contract ProductStorage {
 
         bool success = ProductsLib.loadItems(products, productsExist);
         require(success, "Attention! Failed to load products.");
-        
+
         isLoaded = true;
     }
 
@@ -41,5 +41,9 @@ contract ProductStorage {
 
     function getProductByName(string memory name) public view exist(name) returns(ProductSt memory){
         return productsExist[name];
+    }
+
+    function getIsLoaded() public view returns(bool){
+        return isLoaded;
     }
 }
