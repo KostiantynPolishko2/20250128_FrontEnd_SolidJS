@@ -27,7 +27,7 @@ contract ProductStorage {
         _;
     }
 
-    function loadProducts() public loaded() {
+    function loadProducts() external loaded() {
 
         bool success = ProductsLib.loadItems(products, productsExist);
         require(success, "Attention! Failed to load products.");
@@ -35,15 +35,15 @@ contract ProductStorage {
         isLoaded = true;
     }
 
-    function getProducts() public view returns(ProductSt[] memory){
+    function getProducts() external view returns(ProductSt[] memory){
         return products;
     }
 
-    function getProductByName(string memory name) public view exist(name) returns(ProductSt memory){
+    function getProductByName(string memory name) external view exist(name) returns(ProductSt memory){
         return productsExist[name];
     }
 
-    function getIsLoaded() public view returns(bool){
+    function getIsLoaded() external view returns(bool){
         return isLoaded;
     }
 }
