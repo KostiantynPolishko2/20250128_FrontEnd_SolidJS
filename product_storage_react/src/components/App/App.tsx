@@ -7,10 +7,12 @@ import Products from '../Product/Products.tsx';
 import initContract from '../../utils/initContract.tsx';
 import {getProducts} from '../../utils/actionsContract.tsx';
 import { ButtonWrapper as ButtonStd } from '../styles/standard.styled.ts';
+import Order from '../Order/Order.tsx';
 
 const App = () => {
 
   const [contract, setContract] = useState<Contract | null>(null);
+  const [product, setProduct] = useState<IProduct | null>(null)
   const [products, setProducts] = useState<IProduct[]>([]);
   const [isLoaded, setIsLoaded] = useState<Boolean>(false);
 
@@ -27,15 +29,22 @@ const App = () => {
     if (products.length === 0){
       setProducts(await getProducts(contract));
     }
-
     setIsLoaded(!isLoaded);
+  }
+
+  const handleGetProduct = (e: React.FormEvent<HTMLElement>, i: number) => {
+    e.preventDefault();
+
+    setProduct(products[i]);
   }
 
   return (
     <div className="App">
+      <h2 style={{backgroundColor: '#afe65e'}}>client page</h2>
       <header className="App-header">
-        <ButtonStd onClick = {()=>{handleGetProducts()}}>{!isLoaded? 'load' : 'unload'}</ButtonStd>
-        {!isLoaded || <Products _products={products}/>}
+        <ButtonStd onClick={handleGetProducts}>{!isLoaded? 'load' : 'unload'}</ButtonStd>
+        {!isLoaded || <Products _products={products} _handleGetProduct={handleGetProduct}/>}
+        {!isLoaded || (product === null? <p>none</p> : <Order _product={product}/>)}
       </header>
     </div>
   );

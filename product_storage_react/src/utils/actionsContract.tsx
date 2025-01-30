@@ -5,16 +5,13 @@ export const getIsLoaded  = async(contract: Contract) => {
 };
 
 export const loadProducts = async(contract: Contract) => {
-    console.log('load products to storage:');
     const tx = await contract.loadProducts();
-    console.log('tx: ', tx.hash);
+    // console.log('tx: ', tx.hash);
 
     await tx.wait();
-    console.log(await contract.getIsLoaded());
 };
 
 export const getProducts = async(contract: Contract) => {
-    console.log('get list of products');
     const products = await contract.getProducts();
 
     return products;

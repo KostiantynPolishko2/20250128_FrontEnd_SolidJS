@@ -2,12 +2,12 @@ import React, { FC } from 'react';
 import { ProductWrapper } from './Product.styled.ts';
 
 export interface IProduct {
-    name: string;
-    price: number;
-    isAvailable: boolean;
+    name: string,
+    price: number,
+    isAvailable: boolean,
 }
 
-interface IProductItem {
+export interface IProductItem {
     _product: IProduct,
 }
 
