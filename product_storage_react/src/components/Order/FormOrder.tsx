@@ -14,10 +14,10 @@ const FormOrder: FC = () => {
 
     return(
     <FormOrderWrapper>
-        <label for='quantity'>quantity</label>
-        <input type='number' min='0' name='quantity' placeholder='0'/><br/>
-        <label for='address'>wallet</label>
-        <input type='text' name='address' placeholder='address'/><br/>
+        <label htmlFor='quantity'>quantity</label>
+        <input type='number' min='0' id='quantity' placeholder='0'/><br/>
+        <label htmlFor='address'>wallet</label>
+        <input type='text' id='address' placeholder='address'/><br/>
         <ButtonStd disabled>buy</ButtonStd>
         <ButtonStd onClick={handleClearForm}>clear</ButtonStd>
         <ButtonStd onClick={_handleCloseProduct}>close</ButtonStd>

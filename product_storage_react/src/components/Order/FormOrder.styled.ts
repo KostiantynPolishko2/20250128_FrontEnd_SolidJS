@@ -17,4 +17,8 @@ export const FormOrderWrapper = styled.form`
         top: 5px;
         margin: 0 0 0 5px;
     }
+
+    & > label, input, button {
+        cursor: pointer;
+    }
 `;
