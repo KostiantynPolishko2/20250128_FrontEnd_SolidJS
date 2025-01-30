@@ -21,8 +21,7 @@ export const getProducts = async(contract: Contract) => {
 }
 
 export const getProductByName = async(contract: Contract, name: string) => {
-    console.log('get product by name');
-    const product = await contract.getProductByName(name);
+    // console.log('get product by name');
 
-    console.log(`product ${name}`, product);
+    return await contract.getProductByName(name);
 }

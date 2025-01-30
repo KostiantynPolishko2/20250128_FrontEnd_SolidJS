@@ -8,8 +8,10 @@ import {loadProducts, getProducts, getProductByName} from '../../utils/actionsCo
 
 const App = () => {
 
+  const name = 'milk';
   const [contract, setContract] = useState<Contract | null>(null);
   const [loaded, setLoaded] = useState<boolean>(false);
+  const [product, setProduct] = useState<IProduct>({name: 'undefined', price: 0, isAvailable: false});
 
   useEffect(() => {
     const setupContract = async () => {
@@ -20,13 +22,18 @@ const App = () => {
     setupContract();
   }, []);
 
+  const handleGetProductByName = async(name: string)=>{
+    setProduct(await getProductByName(contract, 'milk'));
+    // console.log(`product ${name}`, product);
+  }
+
   return (
     <div className="App">
       <header className="App-header">
         <button onClick = {()=>{loadProducts(contract)}} disabled style={{color: 'grey'}}>LoadToStorage</button>
         <button onClick = {()=>{getProducts(contract)}}>GetProducts</button>
-        <button onClick = {()=>{getProductByName(contract, 'milk')}}>GetProductByName</button>
-        <Product name='milk' price={42} isAvailable={true}>Product 1</Product>
+        <button onClick = {()=>{handleGetProductByName(name)}}>GetProductByName: {name}</button>
+        <Product name={product.name} price={product.price} isAvailable={product.isAvailable}>Product 1</Product>
       </header>
     </div>
   );
