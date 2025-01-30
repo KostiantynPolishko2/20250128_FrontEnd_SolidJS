@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { ProductWrapper } from './Product.styled.ts';
 
-interface IProduct {
+export interface IProduct {
     name: string;
     price: number;
     isAvailable: boolean;
