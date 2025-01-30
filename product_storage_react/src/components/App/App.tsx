@@ -1,17 +1,18 @@
 import React, {useState, useEffect} from 'react';
 import 'the-new-css-reset';
-import {Contract, Wallet} from 'ethers';
+import {Contract} from 'ethers';
 import './App.css';
-import Product, {IProduct} from '../Product/Product.tsx';
+import {IProduct} from '../Product/Product.tsx';
+import Products from '../Product/Products.tsx';
 import initContract from '../../utils/initContract.tsx';
-import {loadProducts, getProducts, getProductByName} from '../../utils/actionsContract.tsx';
+import {getProducts} from '../../utils/actionsContract.tsx';
+import { ButtonWrapper as ButtonStd } from '../styles/standard.styled.ts';
 
 const App = () => {
 
-  const name = 'milk';
   const [contract, setContract] = useState<Contract | null>(null);
-  const [loaded, setLoaded] = useState<boolean>(false);
-  const [product, setProduct] = useState<IProduct>({name: 'undefined', price: 0, isAvailable: false});
+  const [products, setProducts] = useState<IProduct[]>([]);
+  const [isLoaded, setIsLoaded] = useState<Boolean>(false);
 
   useEffect(() => {
     const setupContract = async () => {
@@ -22,18 +23,19 @@ const App = () => {
     setupContract();
   }, []);
 
-  const handleGetProductByName = async(name: string)=>{
-    setProduct(await getProductByName(contract, 'milk'));
-    // console.log(`product ${name}`, product);
+  const handleGetProducts = async() => {
+    if (products.length === 0){
+      setProducts(await getProducts(contract));
+    }
+
+    setIsLoaded(!isLoaded);
   }
 
   return (
     <div className="App">
       <header className="App-header">
-        <button onClick = {()=>{loadProducts(contract)}} disabled style={{color: 'grey'}}>LoadToStorage</button>
-        <button onClick = {()=>{getProducts(contract)}}>GetProducts</button>
-        <button onClick = {()=>{handleGetProductByName(name)}}>GetProductByName: {name}</button>
-        <Product name={product.name} price={product.price} isAvailable={product.isAvailable}>Product 1</Product>
+        <ButtonStd onClick = {()=>{handleGetProducts()}}>{!isLoaded? 'load' : 'unload'}</ButtonStd>
+        {!isLoaded || <Products _products={products}/>}
       </header>
     </div>
   );
