@@ -1,12 +1,13 @@
 import {Contract, Wallet, JsonRpcProvider} from 'ethers';
 import contractABI from '../abi/contractABI.json';
+import '../.env';
 
 const initContract = async() => {
-    const CONTRACT_ADDRESS = '0x7FeEac7336e205aFb8F2542B6A5e4D402EBEE88E';
-    const PRIVATE_KEY = '0x9b3a923c00d918ef98ac64ab6ab8edad0b81e490c8c694cb197fd45784d1bcab';
-    // console.log('contract', process.env.REACT_APP_CONTRACT_ADDRESS!)
+    const MOONBASE_ALPHA_RPC_URL = process.env.MOONBASE_ALPHA_RPC_URL!;
+    const CONTRACT_ADDRESS = process.env.METAMASK_MOONBEAM_APLPHA_CONTRACT_ADDRESS!;
+    const PRIVATE_KEY = process.env.METAMASK_PRIVATE_KEY!;
 
-    const provider = new JsonRpcProvider('HTTP://127.0.0.1:7545');
+    const provider = new JsonRpcProvider(MOONBASE_ALPHA_RPC_URL);
     await provider.ready;
 
     const _wallet = new Wallet(PRIVATE_KEY, provider);
